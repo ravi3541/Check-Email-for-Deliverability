@@ -16,21 +16,21 @@ def get_mx_records(domain):
         print(f"Error fetching MX records: {e}")
         return None
 
-def is_disposable_email(domain):
-    """
-    Check if the email domain belongs to a disposable email provider.
-    """
-    disposable_email_check_url = "https://open.kickbox.com/v1/disposable/" + domain
-    try:
-        response = requests.get(disposable_email_check_url)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get("disposable", False)
-        else:
-            print(f"Error checking disposable email: HTTP {response.status_code}")
-    except Exception as e:
-        print(f"Error checking disposable email: {e}")
-    return False
+# def is_disposable_email(domain):
+#     """
+#     Check if the email domain belongs to a disposable email provider.
+#     """
+#     disposable_email_check_url = "https://open.kickbox.com/v1/disposable/" + domain
+#     try:
+#         response = requests.get(disposable_email_check_url)
+#         if response.status_code == 200:
+#             data = response.json()
+#             return data.get("disposable", False)
+#         else:
+#             print(f"Error checking disposable email: HTTP {response.status_code}")
+#     except Exception as e:
+#         print(f"Error checking disposable email: {e}")
+#     return False
 
 def verify_email(email):
     """
@@ -40,10 +40,10 @@ def verify_email(email):
         # Extract domain from email
         domain = email.split('@')[-1]
 
-        # Check if the domain is disposable
-        if is_disposable_email(domain):
-            print(f"The email domain {domain} belongs to a disposable email provider.")
-            return False
+        # # Check if the domain is disposable
+        # if is_disposable_email(domain):
+        #     print(f"The email domain {domain} belongs to a disposable email provider.")
+        #     return False
 
         # Get MX records
         mx_records = get_mx_records(domain)
@@ -94,5 +94,21 @@ def verify_email(email):
 
 # Test the script
 # email_to_test = "noveg52859@sfxeur.com"
-email_to_test = "support@seeke.us"
+# email_to_test = "support@seeke.us"
+email_to_test = "ravi@comcast.net"
 verify_email(email_to_test)
+
+
+"""
+commands to manually check email
+
+1. dig google.com MX
+
+2. telnet <server instance address>
+
+3. HELO <google.com>
+
+4. mail from:<yourmail@domain.com>
+
+5. rcpt to:<mail_to_be_tested@domain.com>
+"""
